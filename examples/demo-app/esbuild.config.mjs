@@ -94,7 +94,10 @@ const config = {
   outfile: 'dist/bundle.js',
   bundle: true,
   define: {
-    NODE_ENV
+    NODE_ENV,
+    'process.env.NODE_ENV': NODE_ENV,
+    'process.env': '{}',
+    global: 'globalThis'
   },
   plugins: [
     dotenvRun({
@@ -202,6 +205,12 @@ function addAliases(externals, args) {
 }
 
 function openURL(url) {
+  // Skip browser opening in Docker environment
+  if (process.env.SKIP_BROWSER_OPEN === 'true') {
+    console.log(`Browser opening skipped. Visit: ${url}`);
+    return;
+  }
+  
   // Could potentially be replaced by https://www.npmjs.com/package/open, it was throwing an error when tried last
   const cmd = {
     darwin: ['open'],
