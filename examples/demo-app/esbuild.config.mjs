@@ -93,6 +93,10 @@ const config = {
   entryPoints: ['src/main.js'],
   outfile: 'dist/bundle.js',
   bundle: true,
+  external: [
+    '@openassistant/plots',
+    '@openassistant/tables'
+  ],
   define: {
     NODE_ENV,
     'process.env.NODE_ENV': NODE_ENV,
