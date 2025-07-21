@@ -5,7 +5,7 @@ import {combineReducers} from 'redux';
 import {handleActions} from 'redux-actions';
 import Task, {withTask} from 'react-palm/tasks';
 
-import {aiAssistantReducer} from '@kepler.gl/ai-assistant';
+// import {aiAssistantReducer} from '@kepler.gl/ai-assistant'; // Disabled AI Assistant
 import {EXPORT_MAP_FORMATS} from '@kepler.gl/constants';
 import {processGeojson, processRowObject, processArrowTable} from '@kepler.gl/processors';
 import keplerGlReducer, {combinedUpdaters, uiStateUpdaters} from '@kepler.gl/reducers';
@@ -121,8 +121,8 @@ const demoReducer = combineReducers({
       loadOptions: {} // Add additional loaders.gl loader options here
     }
   }),
-  app: appReducer,
-  aiAssistant: aiAssistantReducer
+  app: appReducer
+  // aiAssistant: aiAssistantReducer // Disabled AI Assistant
 });
 
 async function loadRemoteResourceSuccessTask({

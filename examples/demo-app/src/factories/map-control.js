@@ -10,7 +10,7 @@ import {
   EffectControlFactory,
   EffectManagerFactory
 } from '@kepler.gl/components';
-import {AiAssistantControlFactory} from '@kepler.gl/ai-assistant';
+// import {AiAssistantControlFactory} from '@kepler.gl/ai-assistant'; // Disabled AI Assistant
 
 import {BannerMapPanel, SampleMapPanel} from '../components/map-control/map-control';
 import SqlPanelControlFactory from '../components/map-control/sql-panel-control';
@@ -59,22 +59,22 @@ CustomMapControlFactory.deps = [
   EffectControlFactory,
   EffectManagerFactory,
   SqlPanelControlFactory,
-  AiAssistantControlFactory,
+  // AiAssistantControlFactory, // Disabled AI Assistant
   ...MapControlFactory.deps
 ];
 function CustomMapControlFactory(
   EffectControl,
   EffectManager,
   SqlPanelControl,
-  AiAssistantControl,
+  // AiAssistantControl, // Disabled AI Assistant
   ...deps
 ) {
   const MapControl = MapControlFactory(...deps);
   const actionComponents = [
     ...(MapControl.defaultActionComponents ?? []),
     EffectControl,
-    SqlPanelControl,
-    AiAssistantControl
+    SqlPanelControl
+    // AiAssistantControl // Disabled AI Assistant
   ];
 
   const CustomMapControl = props => {

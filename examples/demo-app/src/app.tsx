@@ -11,13 +11,13 @@ import isEqual from 'lodash/isEqual';
 import {useSelector} from 'react-redux';
 import isPropValid from '@emotion/is-prop-valid';
 import {WebMercatorViewport} from '@deck.gl/core';
-import {ScreenshotWrapper} from '@openassistant/ui';
-import {
-  setStartScreenCapture,
-  setScreenCaptured,
-  AiAssistantPanel,
-  setMapBoundary
-} from '@kepler.gl/ai-assistant';
+// import {ScreenshotWrapper} from '@openassistant/ui'; // Disabled AI Assistant
+// import {
+//   setStartScreenCapture,
+//   setScreenCaptured,
+//   AiAssistantPanel,
+//   setMapBoundary
+// } from '@kepler.gl/ai-assistant'; // Disabled AI Assistant
 import {panelBorderColor, theme} from '@kepler.gl/styles';
 import {ParsedConfig} from '@kepler.gl/types';
 import {getApplicationConfig} from '@kepler.gl/utils';
@@ -118,7 +118,7 @@ const GlobalStyle = styled.div`
   }
 `;
 
-const CONTAINER_STYLE = {
+const CONTAINER_STYLE: React.CSSProperties = {
   transition: 'margin 1s, height 1s',
   position: 'absolute',
   width: '100%',
@@ -163,9 +163,10 @@ const App = props => {
     state => duckDbPluginEnabled && state?.demo?.keplerGl?.map?.uiState.mapControls.sqlPanel?.active
   );
 
-  const isAiAssistantPanelOpen = useSelector(
-    state => state?.demo?.keplerGl?.map?.uiState.mapControls.aiAssistant?.active
-  );
+  // const isAiAssistantPanelOpen = useSelector(
+  //   state => state?.demo?.keplerGl?.map?.uiState.mapControls.aiAssistant?.active
+  // ); // Disabled AI Assistant
+  const isAiAssistantPanelOpen = false; // Always disabled
 
   const prevQueryRef = useRef<number>(null);
 
@@ -228,21 +229,22 @@ const App = props => {
       const viewport = new WebMercatorViewport(viewState);
       const nw = viewport.unproject([0, 0]);
       const se = viewport.unproject([viewport.width, viewport.height]);
-      dispatch(setMapBoundary(nw, se));
+      // dispatch(setMapBoundary(nw, se)); // Disabled AI Assistant
     },
     [dispatch]
   );
 
+  // Disabled AI Assistant functions
   const _setStartScreenCapture = useCallback(
     flag => {
-      dispatch(setStartScreenCapture(flag));
+      // dispatch(setStartScreenCapture(flag)); // Disabled AI Assistant
     },
     [dispatch]
   );
 
   const _setScreenCaptured = useCallback(
     screenshot => {
-      dispatch(setScreenCaptured(screenshot));
+      // dispatch(setScreenCaptured(screenshot)); // Disabled AI Assistant
     },
     [dispatch]
   );
@@ -639,18 +641,13 @@ const App = props => {
         //   node ? (this.root = node) : null;
         // }}
         >
-          <ScreenshotWrapper
-            startScreenCapture={props.demo.aiAssistant.screenshotToAsk.startScreenCapture}
-            setScreenCaptured={_setScreenCaptured}
-            setStartScreenCapture={_setStartScreenCapture}
-            className="h-screen"
-          >
+          {/* <ScreenshotWrapper> Disabled AI Assistant */}
             <Banner show={showBanner} height={BannerHeight} bgColor="#2E7CF6" onClose={hideBanner}>
               <Announcement onDisable={_disableBanner} />
             </Banner>
             <div style={CONTAINER_STYLE}>
               <PanelGroup direction="horizontal">
-                <Panel defaultSize={isAiAssistantPanelOpen ? 70 : 100}>
+                <Panel defaultSize={100}>
                   <PanelGroup direction="vertical">
                     <Panel defaultSize={isSqlPanelOpen ? 60 : 100}>
                       <AutoSizer>
@@ -682,6 +679,7 @@ const App = props => {
                     )}
                   </PanelGroup>
                 </Panel>
+                {/* Disabled AI Assistant Panel
                 {isAiAssistantPanelOpen && (
                   <>
                     <StyledVerticalResizeHandle />
@@ -690,9 +688,10 @@ const App = props => {
                     </Panel>
                   </>
                 )}
+                */}
               </PanelGroup>
             </div>
-          </ScreenshotWrapper>
+          {/* </ScreenshotWrapper> Disabled AI Assistant */}
         </GlobalStyle>
       </ThemeProvider>
     </StyleSheetManager>

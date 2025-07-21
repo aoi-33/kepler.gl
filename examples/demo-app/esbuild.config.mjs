@@ -95,7 +95,14 @@ const config = {
   bundle: true,
   external: [
     '@openassistant/plots',
-    '@openassistant/tables'
+    '@openassistant/tables',
+    '@openassistant/core',
+    '@openassistant/ui',
+    '@openassistant/echarts',
+    '@openassistant/geoda',
+    '@openassistant/duckdb',
+    '@openassistant/osm',
+    '@openassistant/utils'
   ],
   define: {
     NODE_ENV,
